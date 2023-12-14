@@ -32,7 +32,7 @@
 #include <trilobite/xtest.h>   // basic test tools
 #include <trilobite/xassert.h> // extra asserts
 
-#include <trilobite/xscience/rocket.h> // library under test
+#include <trilobite/xscience/arospace.h> // library under test
 
 #ifndef M_PI
 #define M_PI (3.14159265358979323846)

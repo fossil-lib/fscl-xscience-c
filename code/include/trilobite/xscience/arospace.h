@@ -37,8 +37,8 @@
 
    (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
 */
-#ifndef TSCL_ROCKET_H
-#define TSCL_ROCKET_H
+#ifndef TSCL_AROSPACE_H
+#define TSCL_AROSPACE_H
 
 #include <math.h>
 
