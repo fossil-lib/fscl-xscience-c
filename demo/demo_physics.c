@@ -29,25 +29,35 @@
     (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
     ----------------------------------------------------------------------------
 */
-#include <trilobite/module.h>
+#include <trilobite/xscience/physics.h>
 #include <stdio.h>
 
 int main() {
-    int result = add(5, 3);
+    // Define parameters
+    double mass = 10.0;      // in kilograms
+    double acceleration = 5.0;  // in meters per second squared
+    double height = 20.0;    // in meters
+    double velocity = 15.0;  // in meters per second
+    double distance = 30.0;  // in meters
+    double theta = 45.0;     // angle in degrees
+    double time = 2.0;       // in seconds
+    double radius = 10.0;    // in meters
 
-    if (result == 8) {
-        printf("add() test passed!\n");
-    } else {
-        printf("add() test failed. Expected: 8, Got: %d\n", result);
-    } // end statment
+    // Calculate and display results
+    double force = physics_calculate_force(mass, acceleration);
+    double gravitational_potential_energy = physics_calculate_gravitational_potential_energy(mass, height);
+    double kinetic_energy = physics_calculate_kinetic_energy(mass, velocity);
+    double work_done = physics_calculate_work_done(force, distance, theta);
+    double power = physics_calculate_power(work_done, time);
+    double centripetal_force = physics_calculate_centripetal_force(mass, velocity, radius);
 
-    result = subtract(5, 3);
-
-    if (result == 2) {
-        printf("subtract() test passed!\n");
-    } else {
-        printf("subtract() test failed. Expected: 2, Got: %d\n", result);
-    } // end statment
+    // Display results
+    printf("Force: %.2f Newtons\n", force);
+    printf("Gravitational Potential Energy: %.2f Joules\n", gravitational_potential_energy);
+    printf("Kinetic Energy: %.2f Joules\n", kinetic_energy);
+    printf("Work Done: %.2f Joules\n", work_done);
+    printf("Power: %.2f Watts\n", power);
+    printf("Centripetal Force: %.2f Newtons\n", centripetal_force);
 
     return 0;
 } // end of func
