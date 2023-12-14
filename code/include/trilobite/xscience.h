@@ -45,7 +45,11 @@ extern "C"
 {
 #endif
 
-//
+#include "xscience/robotics.h"
+#include "xscience/element.h"
+#include "xscience/physics.h"
+#include "xscience/rocket.h"
+#include "xscience/qubit.h"
 
 #ifdef __cplusplus
 }
