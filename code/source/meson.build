@@ -1,9 +1,13 @@
+cc = meson.get_compiler('c')
+m_dep = cc.find_library('m', required : false)
+
 code = files(
-    'element.c', 'rocket.c', 'robotics.c',
+    'element.c', 'arospace.c', 'robotics.c',
     'qubit.c', 'physics.c')
 
 lib = static_library('tscl-xscince-c',
     code,
+    dependencies: m_dep,
     include_directories: dir)
 
 tscl_xscience_c_dep = declare_dependency(
