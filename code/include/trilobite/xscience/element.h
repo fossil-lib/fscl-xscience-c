@@ -49,7 +49,7 @@ extern "C"
 
 // Define the data structure for an element
 typedef struct {
-    char symbol[3];
+    char symbol[10];
     int atomic_number;
     double atomic_weight;
 } celement;
