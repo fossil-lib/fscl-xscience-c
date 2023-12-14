@@ -49,13 +49,13 @@ XTEST_CASE(test_element_weight_within_range) {
 // Test case for a non-explosive reaction
 XTEST_CASE(test_non_explosive_reaction) {
     celement product = {"H2O", 10, 18.015};
-    TEST_ASSERT_EQUAL_INT(0, element_transform(&product, sizeof(elements) / sizeof(celement)));
+    TEST_ASSERT_EQUAL_INT(0, element_transform(&product));
 }
 
 // Test case for an explosive reaction
 XTEST_CASE(test_explosive_reaction) {
     celement product = {"Na", 11, 22.990};
-    TEST_ASSERT_EQUAL_INT(1, element_transform(&product, sizeof(elements) / sizeof(celement)));
+    TEST_ASSERT_EQUAL_INT(1, element_transform(&product));
 }
 
 //
