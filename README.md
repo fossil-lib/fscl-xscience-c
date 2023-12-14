@@ -35,18 +35,18 @@ Before getting started, make sure you have the following installed:
 
 1. **Create a Wrap File**:
 
-Create a directory named subprojects in the root directory, next create a file named `tscl-x<name>-c.wrap` in the `subprojects` directory of your project with the following content:
+Create a directory named subprojects in the root directory, next create a file named `tscl-xscience-c.wrap` in the `subprojects` directory of your project with the following content:
 
    ```bash
    # ================ #
    #  TSCL Wrap File. #
    # ================ #
    [wrap-git]
-   url = https://github.com/trilobite-stdlib/tscl-<name>-c.git
+   url = https://github.com/trilobite-stdlib/tscl-xscience-c.git
    revision = main
    
    [provide]
-   tscl-x<name>-c = tscl_x<name>_c_dep
+   tscl-xscience-c = tscl_xscience_c_dep
    ```
 
 2. **Integrate Wrap File in Meson Build**:
@@ -56,7 +56,7 @@ Create a directory named subprojects in the root directory, next create a file n
        default_options : ['warning_level=3'])
 
    exe = executable('my_project', 'my_project.c',
-       dependencies : dependency('tscl-x<name>-c'), # add this line
+       dependencies : dependency('tscl-xscience-c'), # add this line
        install : true)
 
    test('basic', exe)
@@ -103,4 +103,4 @@ Thank you for choosing this project with the Meson build system. Happy coding an
 
 ## Contact
 
-If you have questions or want to get in touch regarding programming solutions, you can find a way to contact me on my [website](https://trilobite.code.blog/contact/).
+If you have questions or want to get in touch regarding programming solutions, you can find a way to contact me on my [website](https://trilobite.home.blog/contact/).

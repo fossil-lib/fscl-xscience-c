@@ -37,36 +37,49 @@
 
    (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
 */
-#ifndef TSCL_MOD_H
-#define TSCL_MOD_H
+#ifndef TSCL_SATELITE_H
+#define TSCL_SATELITE_H
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-/**
- * Adds two integers.
- *
- * This function takes two integer values, 'a' and 'b', and returns their sum.
- *
- * @param a The first integer.
- * @param b The second integer.
- * @return The sum of 'a' and 'b'.
- */
-int add(int a, int b);
+// Function to compute the Euclidean distance between two points in 3D space
+double robotic_distance(double x1, double y1, double z1, double x2, double y2, double z2);
 
-/**
- * Subtracts one integer from another.
- *
- * This function takes two integer values, 'a' and 'b', and returns the result of
- * subtracting 'b' from 'a'.
- *
- * @param a The integer from which 'b' will be subtracted.
- * @param b The integer to subtract from 'a'.
- * @return The result of 'a' - 'b'.
- */
-int subtract(int a, int b);
+// Function to compute the dot product of two 3D vectors
+double robotic_dot_product(double x1, double y1, double z1, double x2, double y2, double z2);
+
+// Function to compute the cross product of two 3D vectors
+void robotic_cross_product(double x1, double y1, double z1, double x2, double y2, double z2, double* result_x, double* result_y, double* result_z);
+
+// Function to convert degrees to radians
+double robotic_degrees_to_radians(double degrees);
+
+// Function to convert radians to degrees
+double robotic_radians_to_degrees(double radians);
+
+// Function to compute the angle between two 3D vectors in radians
+double robotic_angle_between_vectors(double x1, double y1, double z1, double x2, double y2, double z2);
+
+// Function to compute the magnitude of a 3D vector
+double robotic_magnitude(double x, double y, double z);
+
+// Function to normalize a 3D vector
+void robotic_normalize(double x, double y, double z, double* result_x, double* result_y, double* result_z);
+
+// Function to rotate a 2D point (x, y) around the origin by a given angle in radians
+void robotic_rotate_2d(double angle, double* x, double* y);
+
+// Function to rotate a 3D point (x, y, z) around the X-axis by a given angle in radians
+void robotic_rotate_x(double angle, double* x, double* y, double* z);
+
+// Function to rotate a 3D point (x, y, z) around the Y-axis by a given angle in radians
+void robotic_rotate_y(double angle, double* x, double* y, double* z);
+
+// Function to rotate a 3D point (x, y, z) around the Z-axis by a given angle in radians
+void robotic_rotate_z(double angle, double* x, double* y, double* z);
 
 #ifdef __cplusplus
 }

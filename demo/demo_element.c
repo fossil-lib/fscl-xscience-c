@@ -1,10 +1,10 @@
 /*  ----------------------------------------------------------------------------
-    File: module.c
+    File: demo_element.c
 
     Description:
-    This source file contains the code entry point for the Trilobite Stdlib project.
-    It demonstrates the usage of various utilities and functions provided by the
-    Trilobite Stdlib to enhance software development.
+    This demo file serves as a showcase of the Trilobite Stdlib in action. It provides
+    example code snippets and usage scenarios to help users understand how to leverage
+    the library's features and functions in their own projects.
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
@@ -29,13 +29,25 @@
     (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
     ----------------------------------------------------------------------------
 */
-#include "trilobite/module.h"
+#include "trilobite/xscience/element.h" // lib source code
+#include <stdio.h>
 
+// Example usage with chemical reaction simulation
+int main() {
+    // Example usage of the lookup function for global elements
+    celement oxygen = element_lookup("O", element_count_chart());
+    celement hydrogen = element_lookup("H", element_count_chart());
 
-int add(int a, int b) {
-    return a + b;
-} // end of func
+    // Simulate a chemical reaction
+    printf("Simulating a chemical reaction:\n");
+    element_react(hydrogen, oxygen);
 
-int subtract(int a, int b) {
-    return a - b;
+    // Simulate a specific reaction
+    element_reaction("H", "O");
+
+    // Get the count of elements on the chart
+    size_t num_elements = element_count_chart();
+    printf("\nNumber of elements on the chart: %zu\n", num_elements);
+
+    return 0;
 } // end of func

@@ -29,28 +29,36 @@
     (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
     ----------------------------------------------------------------------------
 */
-#include <trilobite/xtest.h>
+#include <trilobite/xtest.h>   // basic test tools
+#include <trilobite/xassert.h> // extra asserts
+
+#include <trilobite/xscience/robotics.h> // library under test
 
 //
-// XUNIT-GROUP: list of test groups for the runner
+// XUNIT-CASES: list of test cases testing project features
 //
-XTEST_GROUP_EXTERN(test_physics_group );
-XTEST_GROUP_EXTERN(test_element_group );
-XTEST_GROUP_EXTERN(test_qubit_group   );
-XTEST_GROUP_EXTERN(test_robotics_group);
-XTEST_GROUP_EXTERN(test_arospace_group);
+
+XTEST_CASE(test_distance) {
+    TEST_ASSERT_DOUBLE_EQUAL(5.196, robotic_distance(1.0, 2.0, 3.0, 4.0, 5.0, 6.0));
+}
+
+XTEST_CASE(test_dot_product) {
+    TEST_ASSERT_DOUBLE_EQUAL(56.0, robotic_dot_product(2.0, 3.0, 4.0, 5.0, 6.0, 7.0));
+}
+
+XTEST_CASE(test_cross_product) {
+    double resultX, resultY, resultZ;
+    robotic_cross_product(2.0, 3.0, 4.0, 5.0, 6.0, 7.0, &resultX, &resultY, &resultZ);
+    TEST_ASSERT_DOUBLE_EQUAL(-3.0, resultX);
+    TEST_ASSERT_DOUBLE_EQUAL(6.0, resultY);
+    TEST_ASSERT_DOUBLE_EQUAL(-3.0, resultZ);
+}
 
 //
-// XUNIT-TEST RUNNER
+// XUNIT-GROUP: a group of test cases from the current test file
 //
-int main(int argc, char **argv) {
-    XUnitRunner runner = XTEST_RUNNER_START(argc, argv);
-
-    XTEST_GROUP_REGISTER(test_physics_group,  runner);
-    XTEST_GROUP_REGISTER(test_element_group,  runner);
-    XTEST_GROUP_REGISTER(test_qubit_group,    runner);
-    XTEST_GROUP_REGISTER(test_robotics_group, runner);
-    XTEST_GROUP_REGISTER(test_arospace_group, runner);
-
-    return XTEST_RUNNER_END(runner);
-} // end of func
+XTEST_GROUP_DEFINE(test_robotics_group) {
+    XTEST_RUN_UNIT(test_distance, runner);
+    XTEST_RUN_UNIT(test_dot_product, runner);
+    XTEST_RUN_UNIT(test_cross_product, runner);
+} // end of fixture
