@@ -46,10 +46,24 @@ XTEST_CASE(test_element_weight_within_range) {
     TEST_ASSERT_FALSE(element_weight_within_range(original_element, 16.1, 20.0));
 }
 
+// Test case for a non-explosive reaction
+XTEST_CASE(test_non_explosive_reaction) {
+    celement product = {"H2O", 10, 18.015};
+    TEST_ASSERT_EQUAL_INT(0, element_transform(&product, sizeof(elements) / sizeof(celement)));
+}
+
+// Test case for an explosive reaction
+XTEST_CASE(test_explosive_reaction) {
+    celement product = {"Na", 11, 22.990};
+    TEST_ASSERT_EQUAL_INT(1, element_transform(&product, sizeof(elements) / sizeof(celement)));
+}
+
 //
 // XUNIT-TEST RUNNER
 //
 XTEST_GROUP_DEFINE(test_element_group) {
+    XTEST_RUN_UNIT(test_non_explosive_reaction, runner);
+    XTEST_RUN_UNIT(test_explosive_reaction, runner);
     XTEST_RUN_UNIT(test_create_element, runner);
     XTEST_RUN_UNIT(test_add_elements,   runner);
     XTEST_RUN_UNIT(test_element_copy,   runner);
