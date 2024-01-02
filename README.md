@@ -1,20 +1,8 @@
-# TSCL Science Libraries - **C**
+# Fossil XScience - **C**
 
-Introducing TSCL Science, a cutting-edge platform designed to ignite curiosity and propel exploration in the realms of libraries for elements, robotics, aerospace rockets, and physics. TSCL Science is your gateway to a world of knowledge where innovation and discovery converge.
+Fossil Standard Component Libraries (FSCL) by Fossil Logic represent the pinnacle of software development, embodying our commitment to quality, security, and practicality. These meticulously curated libraries serve as the cornerstone for crafting cutting-edge applications, offering a foundation built on excellence in code. With FSCL, Fossil Logic empowers developers to seamlessly integrate standardized components that elevate the overall performance and reliability of digital solutions, setting a new standard for software excellence.
 
-**Libraries for Elements:**
-Embark on a journey through the elemental building blocks of our universe. TSCL Science provides meticulously curated libraries that delve into the properties, behaviors, and applications of each element, offering a comprehensive resource for students, researchers, and enthusiasts alike. Uncover the mysteries of the periodic table and unlock the secrets hidden within each atomic structure.
-
-**Robotics:**
-Experience the future of automation and artificial intelligence with TSCL Science's robotics division. Dive into the world of advanced robotics, exploring the latest technologies, breakthroughs, and applications. From humanoid robots to autonomous systems, TSCL Science offers a comprehensive exploration of the evolving field, fostering a deeper understanding of the symbiotic relationship between humans and machines.
-
-**Aerospace Rockets:**
-Take flight into the vast expanse of aerospace exploration with TSCL Science. Our platform provides in-depth insights into the design, engineering, and science behind aerospace rockets. Explore the evolution of space travel, from historic milestones to the cutting-edge innovations propelling humanity into the cosmos. TSCL Science is your launchpad to understanding the principles that make rockets soar beyond the Earth's atmosphere.
-
-**Physics:**
-Unravel the mysteries of the universe through the lens of physics with TSCL Science. Our platform offers a comprehensive collection of resources covering classical mechanics, quantum physics, relativity, and beyond. Dive into the fundamental principles shaping our understanding of the physical world and engage with the latest breakthroughs and research in the field.
-
-TSCL Science is not just a repository of information; it's a dynamic platform that encourages exploration, experimentation, and collaboration. Whether you are a student embarking on a scientific journey or a seasoned researcher pushing the boundaries of knowledge, TSCL Science is your partner in the pursuit of understanding the wonders of the scientific world. Join us on a voyage of discovery and innovation, where the boundaries of what is known are constantly expanding.
+Fossil XScience brings a scientific approach to software development. This library incorporates proven algorithms and mathematical models to address complex problems, enabling developers to create solutions with a solid theoretical foundation. With Fossil XScience, elevate your projects by infusing scientific rigor into your coding practices.
 
 ## Who is This For?
 
@@ -35,18 +23,18 @@ Before getting started, make sure you have the following installed:
 
 1. **Create a Wrap File**:
 
-Create a directory named subprojects in the root directory, next create a file named `tscl-xscience-c.wrap` in the `subprojects` directory of your project with the following content:
+Create a directory named subprojects in the root directory, next create a file named `fscl-xscience-c.wrap` in the `subprojects` directory of your project with the following content:
 
    ```bash
    # ================ #
    #  TSCL Wrap File. #
    # ================ #
    [wrap-git]
-   url = https://github.com/trilobite-stdlib/tscl-xscience-c.git
+   url = https://github.com/fossil-lib/fscl-xscience-c.git
    revision = main
    
    [provide]
-   tscl-xscience-c = tscl_xscience_c_dep
+   fscl-xscience-c = fscl_xscience_c_dep
    ```
 
 2. **Integrate Wrap File in Meson Build**:
@@ -56,7 +44,7 @@ Create a directory named subprojects in the root directory, next create a file n
        default_options : ['warning_level=3'])
 
    exe = executable('my_project', 'my_project.c',
-       dependencies : dependency('tscl-xscience-c'), # add this line
+       dependencies : dependency('fscl-xscience-c'), # add this line
        install : true)
 
    test('basic', exe)
@@ -68,30 +56,25 @@ Create a directory named subprojects in the root directory, next create a file n
    meson compile -C builddir
    ```
 
-4. **Visit the reference guide to learn how to this**
-
-Here is the link to the [Refrence Docs](https://trilobite.home.blog/reference-docs/)
-
 ## Including the Demo and Running Tests
 
-To include the demo and run tests, you can use the following options when configuring the build:
+To run tests, you can use the following options when configuring the build:
 
-- **Including the Demo**: Add `-Dwith_demo=enabled` when configuring the build.
 - **Running Tests**: Add `-Dwith_test=enabled` when configuring the build.
 
 Example:
 
 ```bash
-meson setup builddir -Dwith_demo=enabled -Dwith_test=enabled
+meson setup builddir -Dwith_test=enabled
 ```
 
 ## Contributing
 
-If you're interested in contributing to this project, please consider opening pull requests or creating issues on the [GitHub repository](https://github.com/dreamer-coding-555/meson-lib-c). Be sure to read the documentation on the [project website](https://trilobite.home.blog).
+If you're interested in contributing to this project, please consider opening pull requests or creating issues on the [GitHub repository](https://github.com/fossil-lib/fscl-xscience-c).
 
 ## Feedback and Support
 
-If you encounter any issues, have questions, or would like to provide feedback, don't hesitate to open an issue on the [GitHub repository](https://github.com/dreamer-coding-555/meson-lib-c/issues).
+If you encounter any issues, have questions, or would like to provide feedback, don't hesitate to open an issue on the [GitHub repository](https://github.com/fossil-lib/fscl-xscience-c/issues).
 
 ## License
 
@@ -100,7 +83,3 @@ This project is licensed under the [Apache License 2.0](LICENSE).
 ---
 
 Thank you for choosing this project with the Meson build system. Happy coding and building amazing projects!
-
-## Contact
-
-If you have questions or want to get in touch regarding programming solutions, you can find a way to contact me on my [website](https://trilobite.home.blog/contact/).
