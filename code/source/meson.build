@@ -5,11 +5,11 @@ code = files(
     'element.c', 'arospace.c', 'robotics.c',
     'qubit.c', 'physics.c')
 
-lib = static_library('tscl-xscince-c',
+lib = static_library('fscl-xscince-c',
     code,
     dependencies: m_dep,
     include_directories: dir)
 
-tscl_xscience_c_dep = declare_dependency(
+fscl_xscience_c_dep = declare_dependency(
     link_with: lib,
     include_directories: dir)
