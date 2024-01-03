@@ -1,35 +1,16 @@
-/*  ----------------------------------------------------------------------------
-    File: rocket.c
-
-    Description:
-    This source file contains the code entry point for the Trilobite Stdlib project.
-    It demonstrates the usage of various utilities and functions provided by the
-    Trilobite Stdlib to enhance software development.
-
-    Author: Michael Gene Brockus (Dreamer)
-    Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
-
-    Project: Trilobite Stdlib
-
-    License: Apache License 2.0
-    SPDX Identifier: Apache-2.0
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
-
-    Unless required by applicable law or agreed to in writing, software distributed under the License
-    is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
-    or implied. See the License for the specific language governing permissions and limitations
-    under the License.
-
-    Please review the full text of the Apache License 2.0 for the complete terms and conditions.
-
-    (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
-    ----------------------------------------------------------------------------
+/*
+==============================================================================
+Author: Michael Gene Brockus (Dreamer)
+Email: michaelbrockus@gmail.com
+Organization: Fossil Logic
+Description: 
+    This file is part of the Fossil Logic project, where innovation meets
+    excellence in software development. Michael Gene Brockus, also known as
+    "Dreamer," is a dedicated contributor to this project. For any inquiries,
+    feel free to contact Michael at michaelbrockus@gmail.com.
+==============================================================================
 */
-#include "trilobite/xscience/arospace.h"
+#include "fossil/xscience/arospace.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -67,13 +48,13 @@ const double GRAVITATIONAL_ACCELERATION = 9.81;
 const double GRAVITY_CONSTANT = 9.81;
 
 // Function to initialize rocket state for engine test
-void rocket_create_for_test(crocket* rocket, double initial_velocity, double initial_fuel) {
+void fscl_rocket_create_for_test(crocket* rocket, double initial_velocity, double initial_fuel) {
     rocket->velocity = initial_velocity;
     rocket->fuel = initial_fuel;
 }
 
 // Function to apply thrust during engine test, considering fuel consumption
-void rocket_apply_thrust(crocket* rocket, double time_step) {
+void fscl_rocket_apply_thrust(crocket* rocket, double time_step) {
     // Applying specific thrust rules during different phases of the rocket's flight
 
     // Phase 1: Initial ascent (up to velocity of 100 m/s)
@@ -99,7 +80,7 @@ void rocket_apply_thrust(crocket* rocket, double time_step) {
 }
 
 // Adapter function to determine rocket state based on thrust value
-RocketState determine_rocket_state(double thrust) {
+RocketState determine_fscl_rocket_state(double thrust) {
     // Adjust the conditions based on your specific requirements
     if (thrust > 0.0) {
         return ASCENT;
@@ -111,9 +92,9 @@ RocketState determine_rocket_state(double thrust) {
 }
 
 // Function to update rocket state based on dynamics using a state machine
-void rocket_update_state(crocket* rocket, double thrust, double time_step) {
+void fscl_rocket_update_state(crocket* rocket, double thrust, double time_step) {
     // Determine the rocket state based on the current thrust
-    RocketState state = determine_rocket_state(thrust);
+    RocketState state = determine_fscl_rocket_state(thrust);
 
     switch (state) {
         case ASCENT:
@@ -162,13 +143,13 @@ void rocket_update_state(crocket* rocket, double thrust, double time_step) {
 }
 
 // Function to simulate rocket engine test considering fuel
-void rocket_engine_test_simulation(crocket* rocket, double test_duration, double time_step) {
+void fscl_rocket_engine_test_simulation(crocket* rocket, double test_duration, double time_step) {
     for (double time = 0.0; time <= test_duration; time += time_step) {
         // Apply thrust and fuel consumption during the test
-        rocket_apply_thrust(rocket, time_step);
+        fscl_rocket_apply_thrust(rocket, time_step);
 
-        // Update rocket state using the new rocket_update_state function
-        rocket_update_state(rocket, rocket->thrust, time_step);
+        // Update rocket state using the new fscl_rocket_update_state function
+        fscl_rocket_update_state(rocket, rocket->thrust, time_step);
 
         // Output information (optional)
         printf("Time: %.2f s, Velocity: %.2f m/s, Fuel: %.2f kg\n", time, rocket->velocity, rocket->fuel);
@@ -176,19 +157,19 @@ void rocket_engine_test_simulation(crocket* rocket, double test_duration, double
 }
 
 // Function to calculate Mach number from velocity
-double rocket_calculate_mach_number(double velocity, double speed_of_sound) {
+double fscl_rocket_calculate_mach_number(double velocity, double speed_of_sound) {
     // Mach number formula: Mach = velocity / speed_of_sound
     return velocity / speed_of_sound;
 }
 
 // Function to calculate velocity from Mach number
-double rocket_calculate_velocity_from_mach(double mach_number, double speed_of_sound) {
+double fscl_rocket_calculate_velocity_from_mach(double mach_number, double speed_of_sound) {
     // Velocity formula: velocity = Mach * speed_of_sound
     return mach_number * speed_of_sound;
 }
 
 // Function to calculate gravitational acceleration at a given altitude
-double rocket_calculate_gravitational_acceleration(double altitude) {
+double fscl_rocket_calculate_gravitational_acceleration(double altitude) {
     // Gravitational acceleration formula: g = G * (M / (R + altitude)^2)
     // where G is the gravitational constant, M is the mass of Earth, R is Earth's radius
     const double EARTH_MASS = 5.972e24;  // kilograms
@@ -198,7 +179,7 @@ double rocket_calculate_gravitational_acceleration(double altitude) {
 }
 
 // Function to calculate the satellite position at a given time
-satellite_pos satellite_calculate_position(const satellite_orbit* orbit, double time) {
+satellite_pos fscl_satellite_calculate_position(const satellite_orbit* orbit, double time) {
     satellite_pos position;
 
     // Constants
@@ -244,7 +225,7 @@ satellite_pos satellite_calculate_position(const satellite_orbit* orbit, double 
 }
 
 // Function to calculate the satellite velocity at a given time
-satellite_pos satellite_velocity_at_time(const satellite_orbit* orbit, double time) {
+satellite_pos fscl_satellite_velocity_at_time(const satellite_orbit* orbit, double time) {
     satellite_pos velocity;
 
     // Constants
@@ -291,7 +272,7 @@ satellite_pos satellite_velocity_at_time(const satellite_orbit* orbit, double ti
 }
 
 // Function to calculate the orbital period of the satellite
-double satellite_orbital_period(const satellite_orbit* orbit) {
+double fscl_satellite_orbital_period(const satellite_orbit* orbit) {
     // Constants
     const double G = 6.67430e-11; // gravitational constant
     const double M = 5.972e24;    // mass of the Earth
@@ -306,7 +287,7 @@ double satellite_orbital_period(const satellite_orbit* orbit) {
 }
 
 // Function to calculate the ground track of the satellite
-void satellite_ground_track(const satellite_orbit* orbit, double start_time, double duration, earth_point* track, int num_points) {
+void fscl_satellite_ground_track(const satellite_orbit* orbit, double start_time, double duration, earth_point* track, int num_points) {
     // Implementation needed based on the specific requirements and algorithms for calculating the ground track.
     // This function might involve solving complex equations and considering factors like satellite altitude, Earth's rotation, and orbital parameters.
     // The implementation might require external libraries or additional data.
