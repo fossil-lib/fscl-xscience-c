@@ -1,35 +1,16 @@
-/*  ----------------------------------------------------------------------------
-    File: physics.c
-
-    Description:
-    This source file contains the code entry point for the Trilobite Stdlib project.
-    It demonstrates the usage of various utilities and functions provided by the
-    Trilobite Stdlib to enhance software development.
-
-    Author: Michael Gene Brockus (Dreamer)
-    Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
-
-    Project: Trilobite Stdlib
-
-    License: Apache License 2.0
-    SPDX Identifier: Apache-2.0
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0.
-
-    Unless required by applicable law or agreed to in writing, software distributed under the License
-    is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
-    or implied. See the License for the specific language governing permissions and limitations
-    under the License.
-
-    Please review the full text of the Apache License 2.0 for the complete terms and conditions.
-
-    (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
-    ----------------------------------------------------------------------------
+/*
+==============================================================================
+Author: Michael Gene Brockus (Dreamer)
+Email: michaelbrockus@gmail.com
+Organization: Fossil Logic
+Description: 
+    This file is part of the Fossil Logic project, where innovation meets
+    excellence in software development. Michael Gene Brockus, also known as
+    "Dreamer," is a dedicated contributor to this project. For any inquiries,
+    feel free to contact Michael at michaelbrockus@gmail.com.
+==============================================================================
 */
-#include "trilobite/xscience/physics.h"
+#include "fossil/xscience/physics.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -49,7 +30,7 @@ celestial GRAVITY_MOON    = 1.625;
 celestial GRAVITY_MARS    = 3.72076;
 
 // Function to calculate force using Newton's second law: force = mass * acceleration
-double physics_calculate_force(double mass, double acceleration) {
+double fscl_physics_calculate_force(double mass, double acceleration) {
     // Check for invalid input parameters
     if (mass <= 0.0) {
         fprintf(stderr, "Error: Mass must be a positive value.\n");
@@ -60,7 +41,7 @@ double physics_calculate_force(double mass, double acceleration) {
 } // end of func
 
 // Function to calculate gravitational potential energy: potential_energy = mass * gravity * height
-double physics_calculate_gravitational_potential_energy(double mass, double height, double gravity) {
+double fscl_physics_calculate_gravitational_potential_energy(double mass, double height, double gravity) {
     // Check for invalid input parameters
     if (mass <= 0.0 || height < 0.0) {
         fprintf(stderr, "Error: Mass must be a positive value, and height must be non-negative.\n");
@@ -71,7 +52,7 @@ double physics_calculate_gravitational_potential_energy(double mass, double heig
 } // end of func
 
 // Function to calculate kinetic energy: kinetic_energy = 0.5 * mass * velocity^2
-double physics_calculate_kinetic_energy(double mass, double velocity) {
+double fscl_physics_calculate_kinetic_energy(double mass, double velocity) {
     // Check for invalid input parameters
     if (mass <= 0.0 || velocity < 0.0) {
         fprintf(stderr, "Error: Mass must be a positive value, and velocity must be non-negative.\n");
@@ -82,7 +63,7 @@ double physics_calculate_kinetic_energy(double mass, double velocity) {
 } // end of func
 
 // Function to calculate work done: work_done = force * distance * cos(theta)
-double physics_calculate_work_done(double force, double distance, double theta) {
+double fscl_physics_calculate_work_done(double force, double distance, double theta) {
     // Check for invalid input parameters
     if (distance < 0.0 || theta < 0.0 || theta > M_PI) {
         fprintf(stderr, "Error: Distance must be non-negative, and theta must be between 0 and pi radians.\n");
@@ -93,7 +74,7 @@ double physics_calculate_work_done(double force, double distance, double theta) 
 } // end of func
 
 // Function to calculate power: power = work_done / time
-double physics_calculate_power(double work_done, double time) {
+double fscl_physics_calculate_power(double work_done, double time) {
     // Check for invalid input parameters
     if (time <= 0.0) {
         fprintf(stderr, "Error: Time must be a positive value.\n");
@@ -104,7 +85,7 @@ double physics_calculate_power(double work_done, double time) {
 } // end of func
 
 // Function to calculate centripetal force: centripetal_force = (mass * velocity^2) / radius
-double physics_calculate_centripetal_force(double mass, double velocity, double radius) {
+double fscl_physics_calculate_centripetal_force(double mass, double velocity, double radius) {
     // Check for invalid input parameters
     if (mass <= 0.0 || velocity < 0.0 || radius <= 0.0) {
         fprintf(stderr, "Error: Mass must be a positive value, velocity must be non-negative, and radius must be a positive value.\n");
