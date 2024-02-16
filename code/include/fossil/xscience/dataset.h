@@ -23,6 +23,7 @@ extern "C"
 // Include necessary headers
 #include <stdlib.h>
 #include <stdio.h>
+#include <stddef.h>
 
 // Define data types
 typedef struct {
