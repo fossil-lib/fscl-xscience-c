@@ -71,7 +71,7 @@ double fscl_data_sum(const cdataset *dataset);
 double fscl_data_product(const cdataset *dataset);
 
 // Function to find the index of the first occurrence of a specific value in the dataset
-ssize_t fscl_data_find(const cdataset *dataset, double value);
+int fscl_data_find(const cdataset *dataset, double value);
 
 // Function to perform element-wise multiplication of two datasets
 void fscl_data_multiply(const cdataset *dataset1, const cdataset *dataset2, cdataset *result);
