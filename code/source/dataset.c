@@ -188,3 +188,88 @@ double fscl_data_dot_product(const cdataset *dataset1, const cdataset *dataset2)
 
     return dot_product;
 }
+
+// Function to remove missing values from the dataset
+void fscl_data_remove_missing(cdataset *dataset) {
+    size_t i, j = 0;
+    
+    for (i = 0; i < dataset->size; ++i) {
+        if (!isnan(dataset->data[i])) {
+            dataset->data[j++] = dataset->data[i];
+        }
+    }
+
+    dataset->size = j;
+}
+
+// Function to replace missing values with a specified value
+void fscl_data_replace_missing(cdataset *dataset, double replacement_value) {
+    for (size_t i = 0; i < dataset->size; ++i) {
+        if (isnan(dataset->data[i])) {
+            dataset->data[i] = replacement_value;
+        }
+    }
+}
+
+// Function to remove outliers from the dataset using a z-score threshold
+void fscl_data_remove_outliers(cdataset *dataset, double z_threshold) {
+    double mean = fscl_data_mean(dataset);
+    double std_dev = fscl_data_std_dev(dataset);
+
+    for (size_t i = 0; i < dataset->size; ++i) {
+        double z_score = (dataset->data[i] - mean) / std_dev;
+        if (fabs(z_score) > z_threshold) {
+            dataset->data[i] = NAN;  // Mark outlier as missing value
+        }
+    }
+
+    fscl_data_remove_missing(dataset);
+}
+
+// Function to standardize the dataset (subtract mean, divide by standard deviation)
+void fscl_data_standardize(cdataset *dataset) {
+    double mean = fscl_data_mean(dataset);
+    double std_dev = fscl_data_std_dev(dataset);
+
+    for (size_t i = 0; i < dataset->size; ++i) {
+        dataset->data[i] = (dataset->data[i] - mean) / std_dev;
+    }
+}
+
+// Function to normalize numeric features in the dataset
+void fscl_data_normalize_features(cdataset *dataset) {
+    for (size_t i = 0; i < dataset->size; ++i) {
+        double min_val = fscl_data_min(dataset);
+        double max_val = fscl_data_max(dataset);
+        dataset->data[i] = (dataset->data[i] - min_val) / (max_val - min_val);
+    }
+}
+
+// Function to encode categorical variables using one-hot encoding
+void fscl_data_one_hot_encode(cdataset *dataset, size_t feature_index) {
+    // Assuming feature at feature_index is categorical with integer values
+
+    // Determine the number of unique categories in the specified feature
+    size_t num_categories = 0;
+    for (size_t i = 0; i < dataset->size; ++i) {
+        if (dataset->data[i] > num_categories) {
+            num_categories = (size_t)dataset->data[i];
+        }
+    }
+
+    // Create new columns for each category
+    size_t original_size = dataset->size;
+    dataset->size += num_categories;
+
+    dataset->data = (double *)realloc(dataset->data, dataset->size * sizeof(double));
+
+    for (size_t i = original_size; i < dataset->size; ++i) {
+        dataset->data[i] = 0.0;
+    }
+
+    // Update the one-hot encoded values
+    for (size_t i = 0; i < original_size; ++i) {
+        size_t category = (size_t)dataset->data[i];
+        dataset->data[original_size + category] = 1.0;
+    }
+}
