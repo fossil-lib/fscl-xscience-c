@@ -85,6 +85,24 @@ void fscl_data_subtract(const cdataset *dataset1, const cdataset *dataset2, cdat
 // Function to calculate the dot product of two datasets
 double fscl_data_dot_product(const cdataset *dataset1, const cdataset *dataset2);
 
+// Function to remove missing values from the dataset
+void fscl_data_remove_missing(cdataset *dataset);
+
+// Function to replace missing values with a specified value
+void fscl_data_replace_missing(cdataset *dataset, double replacement_value);
+
+// Function to remove outliers from the dataset using a z-score threshold
+void fscl_data_remove_outliers(cdataset *dataset, double z_threshold);
+
+// Function to standardize the dataset (subtract mean, divide by standard deviation)
+void fscl_data_standardize(cdataset *dataset);
+
+// Function to normalize numeric features in the dataset
+void fscl_data_normalize_features(cdataset *dataset);
+
+// Function to encode categorical variables using one-hot encoding
+void fscl_data_one_hot_encode(cdataset *dataset, size_t feature_index);
+
 #ifdef __cplusplus
 }
 #endif
