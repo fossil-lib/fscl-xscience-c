@@ -124,11 +124,11 @@ double fscl_data_product(const cdataset *dataset) {
     return product;
 }
 
-// Function to find the index of the first occurrence of a specific value in the dataset
-ssize_t fscl_data_find(const cdataset *dataset, double value) {
+// Modified fscl_data_find without using ssize_t
+int fscl_data_find(const cdataset *dataset, double value) {
     for (size_t i = 0; i < dataset->size; ++i) {
         if (dataset->data[i] == value) {
-            return (ssize_t)i; // Found at index i
+            return (int)i; // Found at index i
         }
     }
     return -1; // Value not found
