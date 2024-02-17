@@ -57,7 +57,7 @@ XTEST_CASE(test_fscl_data_mean) {
     double expected_mean = (0 * 1.5 + 1 * 1.5 + 2 * 1.5 + 3 * 1.5 + 4 * 1.5) / 5.0;
     double actual_mean = fscl_data_mean(&myDataset);
 
-    TEST_ASSERT_EQUAL_DOUBLE(expected_mean, actual_mean);
+    TEST_ASSERT_DOUBLE_EQUAL(expected_mean, actual_mean);
 
     fscl_data_erase(&myDataset);
 }
@@ -78,7 +78,7 @@ XTEST_CASE(test_fscl_data_add) {
 
     for (size_t i = 0; i < result.size; ++i) {
         double expected_value = i * 2.0 + i * 1.5;
-        TEST_ASSERT_EQUAL_DOUBLE(expected_value, result.data[i]);
+        TEST_ASSERT_DOUBLE_EQUAL(expected_value, result.data[i]);
     }
 
     fscl_data_erase(&dataset1);
@@ -102,7 +102,7 @@ XTEST_CASE(test_fscl_data_multiply) {
 
     for (size_t i = 0; i < result.size; ++i) {
         double expected_value = i * 2.0 * i * 1.5;
-        TEST_ASSERT_EQUAL_DOUBLE(expected_value, result.data[i]);
+        TEST_ASSERT_DOUBLE_EQUAL(expected_value, result.data[i]);
     }
 
     fscl_data_erase(&dataset1);
