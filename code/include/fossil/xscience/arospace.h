@@ -76,13 +76,58 @@ typedef struct {
 // =================================================================
 // Avalible functions
 // =================================================================
-void fscl_rocket_create_for_test(crocket* rocket, double initial_velocity, double initial_fuel);
-void fscl_rocket_apply_thrust(crocket* rocket, double time_step);
-void fscl_rocket_engine_test_simulation(crocket* rocket, double test_duration, double time_step);
-double fscl_rocket_calculate_mach_number(double velocity, double speed_of_sound);
-double fscl_rocket_calculate_velocity_from_mach(double mach_number, double speed_of_sound);
-double fscl_rocket_calculate_gravitational_acceleration(double altitude);
 
+/**
+ * Creates a rocket for testing with specified initial velocity and initial fuel.
+ *
+ * @param rocket The rocket to create.
+ * @param initial_velocity The initial velocity of the rocket.
+ * @param initial_fuel The initial amount of fuel for the rocket.
+ */
+void fscl_rocket_create_for_test(crocket* rocket, double initial_velocity, double initial_fuel);
+
+/**
+ * Applies thrust to a rocket for a specified time step.
+ *
+ * @param rocket The rocket to apply thrust to.
+ * @param time_step The time step for applying thrust.
+ */
+void fscl_rocket_apply_thrust(crocket* rocket, double time_step);
+
+/**
+ * Performs engine test simulation for a rocket over a specified duration with a given time step.
+ *
+ * @param rocket The rocket to simulate.
+ * @param test_duration The duration of the engine test.
+ * @param time_step The time step for the simulation.
+ */
+void fscl_rocket_engine_test_simulation(crocket* rocket, double test_duration, double time_step);
+
+/**
+ * Calculates the Mach number of a rocket given its velocity and the speed of sound.
+ *
+ * @param velocity The velocity of the rocket.
+ * @param speed_of_sound The speed of sound.
+ * @return The Mach number of the rocket.
+ */
+double fscl_rocket_calculate_mach_number(double velocity, double speed_of_sound);
+
+/**
+ * Calculates the velocity of a rocket from its Mach number and the speed of sound.
+ *
+ * @param mach_number The Mach number of the rocket.
+ * @param speed_of_sound The speed of sound.
+ * @return The velocity of the rocket.
+ */
+double fscl_rocket_calculate_velocity_from_mach(double mach_number, double speed_of_sound);
+
+/**
+ * Calculates the gravitational acceleration at a given altitude.
+ *
+ * @param altitude The altitude at which to calculate gravitational acceleration.
+ * @return The gravitational acceleration at the specified altitude.
+ */
+double fscl_rocket_calculate_gravitational_acceleration(double altitude);
 
 typedef struct {
     double semi_major_axis; // in meters
@@ -108,9 +153,42 @@ typedef struct {
 // =================================================================
 // Avalible functions
 // =================================================================
+
+/**
+ * Calculates the position of a satellite in its orbit at a specific time.
+ *
+ * @param orbit The orbit parameters of the satellite.
+ * @param time The time for which to calculate the satellite position.
+ * @return The position of the satellite at the specified time.
+ */
 satellite_pos fscl_satellite_calculate_position(const satellite_orbit* orbit, double time);
+
+/**
+ * Calculates the ground track of a satellite over a specified duration.
+ *
+ * @param orbit The orbit parameters of the satellite.
+ * @param start_time The starting time of the ground track calculation.
+ * @param duration The duration for which to calculate the ground track.
+ * @param track An array to store the earth points along the ground track.
+ * @param num_points The number of points in the track array.
+ */
 void fscl_satellite_ground_track(const satellite_orbit* orbit, double start_time, double duration, earth_point* track, int num_points);
+
+/**
+ * Calculates the orbital period of a satellite.
+ *
+ * @param orbit The orbit parameters of the satellite.
+ * @return The orbital period of the satellite.
+ */
 double fscl_satellite_orbital_period(const satellite_orbit* orbit);
+
+/**
+ * Calculates the velocity of a satellite at a specific time in its orbit.
+ *
+ * @param orbit The orbit parameters of the satellite.
+ * @param time The time for which to calculate the satellite velocity.
+ * @return The velocity of the satellite at the specified time.
+ */
 satellite_pos fscl_satellite_velocity_at_time(const satellite_orbit* orbit, double time);
 
 #ifdef __cplusplus
