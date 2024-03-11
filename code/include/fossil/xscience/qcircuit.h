@@ -18,7 +18,7 @@ extern "C"
 {
 #endif
 
-#include "qbits.h"
+#include "qubits.h"
 
 // Define the quantum circuit structure
 typedef struct {
