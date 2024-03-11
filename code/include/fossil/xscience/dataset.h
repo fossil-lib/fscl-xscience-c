@@ -34,73 +34,187 @@ typedef struct {
 // =================================================================
 // Avalible functions
 // =================================================================
-// Function to create a dataset
+
+/**
+ * Creates a new dataset with the specified size.
+ *
+ * @param dataset Pointer to the dataset to be created.
+ * @param size Size of the dataset.
+ */
 void fscl_data_create(cdataset *dataset, size_t size);
 
-// Function to erase memory allocated for a dataset
+/**
+ * Erases memory allocated for a dataset.
+ *
+ * @param dataset Pointer to the dataset to be erased.
+ */
 void fscl_data_erase(cdataset *dataset);
 
-// Function to print a dataset
+/**
+ * Prints the contents of a dataset.
+ *
+ * @param dataset Pointer to the dataset to be printed.
+ */
 void fscl_data_print(const cdataset *dataset);
 
-// Function to fill the dataset with random values
+/**
+ * Fills the dataset with random values.
+ *
+ * @param dataset Pointer to the dataset to be filled with random values.
+ */
 void fscl_data_fill_random(cdataset *dataset);
 
-// Function to calculate the mean of the dataset
+/**
+ * Calculates the mean of the dataset.
+ *
+ * @param dataset Pointer to the dataset.
+ * @return The mean value.
+ */
 double fscl_data_mean(const cdataset *dataset);
 
-// Function to calculate the standard deviation of the dataset
+/**
+ * Calculates the standard deviation of the dataset.
+ *
+ * @param dataset Pointer to the dataset.
+ * @return The standard deviation.
+ */
 double fscl_data_std_dev(const cdataset *dataset);
 
-// Function to scale the dataset by a given factor
+/**
+ * Scales the dataset by a given factor.
+ *
+ * @param dataset Pointer to the dataset to be scaled.
+ * @param factor Scaling factor.
+ */
 void fscl_data_scale(cdataset *dataset, double factor);
 
-// Function to perform element-wise addition of two datasets
+/**
+ * Performs element-wise addition of two datasets and stores the result in a third dataset.
+ *
+ * @param dataset1 Pointer to the first dataset.
+ * @param dataset2 Pointer to the second dataset.
+ * @param result Pointer to the dataset where the result will be stored.
+ */
 void fscl_data_add(const cdataset *dataset1, const cdataset *dataset2, cdataset *result);
 
-// Function to find the minimum value in the dataset
+/**
+ * Finds the minimum value in the dataset.
+ *
+ * @param dataset Pointer to the dataset.
+ * @return The minimum value.
+ */
 double fscl_data_min(const cdataset *dataset);
 
-// Function to find the maximum value in the dataset
+/**
+ * Finds the maximum value in the dataset.
+ *
+ * @param dataset Pointer to the dataset.
+ * @return The maximum value.
+ */
 double fscl_data_max(const cdataset *dataset);
 
-// Function to calculate the sum of all elements in the dataset
+/**
+ * Calculates the sum of all elements in the dataset.
+ *
+ * @param dataset Pointer to the dataset.
+ * @return The sum of all elements.
+ */
 double fscl_data_sum(const cdataset *dataset);
 
-// Function to calculate the product of all elements in the dataset
+/**
+ * Calculates the product of all elements in the dataset.
+ *
+ * @param dataset Pointer to the dataset.
+ * @return The product of all elements.
+ */
 double fscl_data_product(const cdataset *dataset);
 
-// Function to find the index of the first occurrence of a specific value in the dataset
+/**
+ * Finds the index of the first occurrence of a specific value in the dataset.
+ *
+ * @param dataset Pointer to the dataset.
+ * @param value The value to be found.
+ * @return The index of the first occurrence or -1 if not found.
+ */
 int fscl_data_find(const cdataset *dataset, double value);
 
-// Function to perform element-wise multiplication of two datasets
+/**
+ * Performs element-wise multiplication of two datasets and stores the result in a third dataset.
+ *
+ * @param dataset1 Pointer to the first dataset.
+ * @param dataset2 Pointer to the second dataset.
+ * @param result Pointer to the dataset where the result will be stored.
+ */
 void fscl_data_multiply(const cdataset *dataset1, const cdataset *dataset2, cdataset *result);
 
-// Function to normalize the dataset between 0 and 1
+/**
+ * Normalizes the dataset between 0 and 1.
+ *
+ * @param dataset Pointer to the dataset to be normalized.
+ */
 void fscl_data_normalize(cdataset *dataset);
 
-// Function to perform element-wise subtraction of two datasets
+/**
+ * Performs element-wise subtraction of two datasets and stores the result in a third dataset.
+ *
+ * @param dataset1 Pointer to the first dataset.
+ * @param dataset2 Pointer to the second dataset.
+ * @param result Pointer to the dataset where the result will be stored.
+ */
 void fscl_data_subtract(const cdataset *dataset1, const cdataset *dataset2, cdataset *result);
 
-// Function to calculate the dot product of two datasets
+/**
+ * Calculates the dot product of two datasets.
+ *
+ * @param dataset1 Pointer to the first dataset.
+ * @param dataset2 Pointer to the second dataset.
+ * @return The dot product of the two datasets.
+ */
 double fscl_data_dot_product(const cdataset *dataset1, const cdataset *dataset2);
 
-// Function to remove missing values from the dataset
+/**
+ * Removes missing values from the dataset.
+ *
+ * @param dataset Pointer to the dataset.
+ */
 void fscl_data_remove_missing(cdataset *dataset);
 
-// Function to replace missing values with a specified value
+/**
+ * Replaces missing values in the dataset with a specified value.
+ *
+ * @param dataset Pointer to the dataset.
+ * @param replacement_value The value to replace missing values with.
+ */
 void fscl_data_replace_missing(cdataset *dataset, double replacement_value);
 
-// Function to remove outliers from the dataset using a z-score threshold
+/**
+ * Removes outliers from the dataset using a z-score threshold.
+ *
+ * @param dataset Pointer to the dataset.
+ * @param z_threshold The z-score threshold for detecting outliers.
+ */
 void fscl_data_remove_outliers(cdataset *dataset, double z_threshold);
 
-// Function to standardize the dataset (subtract mean, divide by standard deviation)
+/**
+ * Standardizes the dataset (subtract mean, divide by standard deviation).
+ *
+ * @param dataset Pointer to the dataset to be standardized.
+ */
 void fscl_data_standardize(cdataset *dataset);
 
-// Function to normalize numeric features in the dataset
+/**
+ * Normalizes numeric features in the dataset.
+ *
+ * @param dataset Pointer to the dataset.
+ */
 void fscl_data_normalize_features(cdataset *dataset);
 
-// Function to encode categorical variables using one-hot encoding
+/**
+ * Encodes categorical variables using one-hot encoding.
+ *
+ * @param dataset Pointer to the dataset containing categorical variables.
+ * @param feature_index Index of the feature to be one-hot encoded.
+ */
 void fscl_data_one_hot_encode(cdataset *dataset, size_t feature_index);
 
 #ifdef __cplusplus
