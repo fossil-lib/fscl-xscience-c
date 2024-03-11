@@ -23,6 +23,7 @@ extern "C"
 #include "xscience/physics.h"
 #include "xscience/dataset.h"
 #include "xscience/arospace.h"
+#include "xscience/qcircuit.h"
 #include "xscience/qubit.h"
 
 #ifdef __cplusplus
