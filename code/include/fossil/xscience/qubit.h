@@ -41,7 +41,7 @@ void fscl_qbit_entangle(cqbit *qubit1, cqbit *qubit2);
 void fscl_qbit_phase(cqbit *q);
 void fscl_qbit_teleport(cqbit *source, cqbit *auxiliary, cqbit *target);
 void fscl_qbit_swap(cqbit *qubit1, cqbit *qubit2);
-void fscl_qbit_controlled_not(cqbit *control, cqbit *target);
+void fscl_qbit_controlled_not(cqbit *control1, cqbit *control2, cqbit *target);
 
 // Utility functions
 void fscl_qbit_print(const cqbit *q);
