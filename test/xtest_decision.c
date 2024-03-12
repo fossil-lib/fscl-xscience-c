@@ -22,7 +22,7 @@ Description:
 XTEST_CASE(test_decision_create) {
     cdecision decision = fscl_decision_create("Test Decision", 0.75);
     TEST_ASSERT_EQUAL_STRING("Test Decision", decision.name);
-    TEST_ASSERT_EQUAL_FLOAT(0.75, decision.score);
+    TEST_ASSERT_FLOAT_EQUAL(0.75, decision.score);
 }
 
 XTEST_CASE(test_decision_compare) {
@@ -42,7 +42,7 @@ XTEST_CASE(test_decision_make_weighted) {
 XTEST_CASE(test_decision_aggregate_scores) {
     cdecision decisions[] = {{"Option A", 0.8}, {"Option B", 0.6}, {"Option C", 0.9}};
     double total_score = fscl_decision_aggregate_scores(decisions, 3);
-    TEST_ASSERT_EQUAL_FLOAT(2.3, total_score);
+    TEST_ASSERT_FLOAT_EQUAL(2.3, total_score);
 }
 
 XTEST_CASE(test_decision_print) {
@@ -51,10 +51,15 @@ XTEST_CASE(test_decision_print) {
     freopen("test_output.txt", "w", stdout);
     fscl_decision_print(&decision);
     fflush(stdout);
+    
+    // Explicitly use the return value of fgets to avoid the warning
     FILE* fp = fopen("test_output.txt", "r");
     char buffer[100];
-    fgets(buffer, sizeof(buffer), fp);
+    if (fgets(buffer, sizeof(buffer), fp) == NULL) {
+        TEST_FAIL_MESSAGE("Error reading from file");
+    }
     fclose(fp);
+    
     TEST_ASSERT_EQUAL_STRING("Decision: Test Decision, Score: 0.750000\n", buffer);
 }
 
