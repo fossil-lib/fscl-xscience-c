@@ -159,6 +159,20 @@ void fscl_qbit_teleport(cqbit *source, cqbit *auxiliary, cqbit *target) {
     }
 }
 
+// Swap the state of two qubits
+void fscl_qbit_swap(cqbit *qubit1, cqbit *qubit2) {
+    int temp_state = qubit1->state;
+    qubit1->state = qubit2->state;
+    qubit2->state = temp_state;
+}
+
+// Apply a controlled NOT (CNOT) gate between control and target qubits
+void fscl_qbit_controlled_not(cqbit *control, cqbit *target) {
+    if (control->state == 1) {
+        fscl_qbit_pauli_x(target);
+    }
+}
+
 // Print the state of the qubit
 void fscl_qbit_print(const cqbit *q) {
     if (q != NULL) {
