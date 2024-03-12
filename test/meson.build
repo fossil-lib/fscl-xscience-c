@@ -1,12 +1,16 @@
 if get_option('with_test').enabled()
     test_deps = [
-        dependency('fscl-xtest-c')
+        dependency('fscl-xtest-c'),
+        dependency('fscl-xmock-c')
     ]
 
     test_src = ['xunit_runner.c']
     test_cubes = [
-        'element', 'decision', 'arospace', 'robotics',
-        'qubit', 'qcircuit', 'physics', 'dataset']
+        'element',    'arospace',
+        'robotics', 'biological',
+        'decision', 'qubit',
+        'qcircuit', 'physics',
+        'dataset']
 
     foreach cube : test_cubes
         test_src += ['xtest_' + cube + '.c']

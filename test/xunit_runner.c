@@ -15,6 +15,7 @@ Description:
 //
 // XUNIT-GROUP: list of test groups for the runner
 //
+XTEST_EXTERN_POOL(test_biological_group);
 XTEST_EXTERN_POOL(test_fscl_physics_group);
 XTEST_EXTERN_POOL(test_fscl_element_group);
 XTEST_EXTERN_POOL(test_fscl_qcircuit_group);
@@ -30,6 +31,7 @@ XTEST_EXTERN_POOL(test_dataset_group);
 int main(int argc, char **argv) {
     XTEST_CREATE(argc, argv);
 
+    XTEST_IMPORT_POOL(test_biological_group);
     XTEST_IMPORT_POOL(test_fscl_physics_group);
     XTEST_IMPORT_POOL(test_fscl_element_group);
     XTEST_IMPORT_POOL(test_fscl_qcircuit_group);
