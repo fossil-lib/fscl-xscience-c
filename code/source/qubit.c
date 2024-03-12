@@ -42,7 +42,7 @@ void fscl_qbit_set_one(cqbit *q) {
 }
 
 // Measure the qubit and return the result (0 or 1)
-int fscl_qbit_measure(const cqbit *q) {
+int fscl_qbit_measure(cqbit *q) {
     if (q != NULL) {
         return q->state;
     } else {
@@ -133,7 +133,7 @@ void fscl_qbit_phase(cqbit *q) {
 }
 
 // Simulate quantum teleportation between three qubits
-void fscl_qbit_teleport(const cqbit *source, cqbit *auxiliary, cqbit *target) {
+void fscl_qbit_teleport(cqbit *source, cqbit *auxiliary, cqbit *target) {
     if (source != NULL && auxiliary != NULL && target != NULL) {
         // Step 1: Create an entangled state between the source and auxiliary qubits
         fscl_qbit_entangle(auxiliary, source);
