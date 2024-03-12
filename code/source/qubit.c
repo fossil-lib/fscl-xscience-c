@@ -11,271 +11,174 @@ Description:
 ==============================================================================
 */
 #include "fossil/xscience/qubit.h"
-#include <string.h>
-#include <stdlib.h>
 #include <stdio.h>
-#include <math.h>
-#include <time.h>
+#include <stdlib.h>
 
-// Initialize a qubit in the |0⟩ state.
-cqubit fscl_qubit_create(void) {
-    cqubit qubit;
-    qubit.alpha = 1.0;
-    qubit.beta = 0.0;
-    return qubit;
+// Create and initialize a qubit in the |0⟩ state
+cqbit fscl_qbit_create() {
+    cqbit q;
+    q.state = 0;
+    return q;
 }
 
-// Apply the Hadamard gate to a qubit
-cqubit fscl_qubit_hadamard(cqubit qubit) {
-    cqubit result;
-    result.alpha = (qubit.alpha + qubit.beta) / sqrt(2);
-    result.beta = (qubit.alpha - qubit.beta) / sqrt(2);
-    return result;
-}
-
-// Apply the Pauli X gate to a qubit (bit flip)
-cqubit fscl_qubit_pauli_x(cqubit qubit) {
-    cqubit result;
-    result.alpha = qubit.beta;
-    result.beta = qubit.alpha;
-    return result;
-}
-
-// Apply the Pauli Y gate to a qubit
-cqubit fscl_qubit_pauli_y(cqubit qubit) {
-    cqubit result;
-    result.alpha = -qubit.beta;
-    result.beta = qubit.alpha;
-    return result;
-}
-
-// Apply the Pauli Z gate to a qubit
-cqubit fscl_qubit_pauli_z(cqubit qubit) {
-    cqubit result;
-    result.alpha = qubit.alpha;
-    result.beta = -qubit.beta;
-    return result;
-}
-
-// Perform a controlled-NOT (CNOT) operation
-cqubit fscl_qubit_cnot(cqubit control, cqubit target) {
-    cqubit result;
-    result.alpha = control.alpha * target.alpha;
-    result.beta = control.beta * target.beta;
-    return result;
-}
-
-// Grover Oracle: Apply a phase flip for the target state
-cqubit grover_oracle(cqubit input) {
-    input.beta = -input.beta; // Apply a phase flip for the target state
-    return input;
-}
-
-// Function to perform a Hadamard gate on a specific qubit in the quantum register
-void fscl_qubit_apply_hadamard(quantum_register* qreg, int target_fscl_qubit_index) {
-    qreg->qubits[target_fscl_qubit_index] = fscl_qubit_hadamard(qreg->qubits[target_fscl_qubit_index]);
-}
-
-// Function to apply a controlled-NOT (CNOT) operation to two qubits
-void fscl_qubit_apply_cnot(quantum_register* qreg, int control_index, int target_index) {
-    cqubit control = qreg->qubits[control_index];
-    cqubit target = qreg->qubits[target_index];
-    qreg->qubits[target_index] = fscl_qubit_cnot(control, target);
-}
-
-// Function to apply a Grover Oracle phase flip to a target qubit
-void fscl_qubit_apply_grover_oracle(quantum_register* qreg, int target_index) {
-    qreg->qubits[target_index] = grover_oracle(qreg->qubits[target_index]);
-}
-
-// Function to apply a Grover Iteration to a quantum register
-void fscl_qubit_apply_grover_iteration(quantum_register* qreg) {
-    // Apply Hadamard to create superposition
-    for (int i = 0; i < qreg->size; ++i) {
-        qreg->qubits[i] = fscl_qubit_hadamard(qreg->qubits[i]);
-    }
-
-    // Apply Oracle (phase flip for target state)
-    for (int i = 0; i < qreg->size; ++i) {
-        fscl_qubit_apply_grover_oracle(qreg, i);
-    }
-
-    // Apply Diffusion operator
-    for (int i = 0; i < qreg->size; ++i) {
-        for (int j = 0; j < qreg->size; ++j) {
-            fscl_qubit_apply_cnot(qreg, j, 0); // Control qubit 0, target qubit j
-        }
-        qreg->qubits[i] = fscl_qubit_hadamard(qreg->qubits[i]);
-    }
-}
-
-// Function to apply Grover Search to a quantum register
-void fscl_qubit_apply_grover_search(quantum_register* qreg, int num_iterations) {
-    // Apply Hadamard to create superposition
-    for (int i = 0; i < qreg->size; ++i) {
-        qreg->qubits[i] = fscl_qubit_hadamard(qreg->qubits[i]);
-    }
-
-    // Apply Grover iteration (amplitude amplification)
-    for (int i = 0; i < num_iterations; ++i) {
-        fscl_qubit_apply_grover_iteration(qreg);
-    }
-
-    // Measure to find the correct solution
-    int result = fscl_qubit_measure(qreg->qubits[0]);
-
-    // Apply Oracle operation based on the measurement result
-    if (result == 1) {
-        fscl_qubit_apply_grover_oracle(qreg, 0);
-    }
-}
-
-// Function to initialize a quantum gate
-quantum_gate fscl_qubit_create_gate(const char* name, int target_fscl_qubit_index) {
-    quantum_gate gate;
-
-    // Allocate memory for the name field
-    gate.name = (char*)malloc(strlen(name) + 1); // +1 for null terminator
-
-    // Check if memory allocation is successful
-    if (gate.name == NULL) {
-        // Handle memory allocation failure
-        fprintf(stderr, "Memory allocation failed for quantum gate name.\n");
+// Set the qubit to |0⟩ state
+void fscl_qbit_set_zero(cqbit *q) {
+    if (q != NULL) {
+        q->state = 0;
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_set_zero.\n");
         exit(EXIT_FAILURE);
     }
-
-    // Copy the content of the name parameter to the allocated memory
-    strcpy(gate.name, name);
-
-    gate.target_fscl_qubit_index = target_fscl_qubit_index;
-    // Initialize other parameters based on the gate type
-
-    return gate;
 }
 
-// Function to release memory occupied by a quantum gate
-void fscl_qubit_erase_gate(quantum_gate* gate) {
-    free(gate->name);
-    // Free other dynamically allocated parameters
-}
-
-// Function to initialize a quantum state
-quantum_state fscl_qubit_create_state(int size) {
-    quantum_state state;
-    state.size = size;
-    state.real_part = (double*)malloc(size * sizeof(double));
-    state.imaginary_part = (double*)malloc(size * sizeof(double));
-
-    // Initialize real and imaginary parts, e.g., setting all amplitudes to zero
-    for (int i = 0; i < size; ++i) {
-        state.real_part[i] = 0.0;
-        state.imaginary_part[i] = 0.0;
+// Set the qubit to |1⟩ state
+void fscl_qbit_set_one(cqbit *q) {
+    if (q != NULL) {
+        q->state = 1;
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_set_one.\n");
+        exit(EXIT_FAILURE);
     }
-
-    return state;
 }
 
-// Function to release memory occupied by a quantum state
-void fscl_qubit_erase_state(quantum_state* state) {
-    free(state->real_part);
-    free(state->imaginary_part);
-}
-
-// Function to initialize a quantum register
-quantum_register fscl_qubit_create_register(int size) {
-    quantum_register reg;
-    reg.size = size;
-    reg.qubits = (cqubit*)malloc(size * sizeof(cqubit));
-
-    // Initialize qubits, e.g., set all qubits to |0⟩ state
-    for (int i = 0; i < size; ++i) {
-        reg.qubits[i] = fscl_qubit_create();
+// Measure the qubit and return the result (0 or 1)
+int fscl_qbit_measure(cqbit *q) {
+    if (q != NULL) {
+        return q->state;
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_measure.\n");
+        exit(EXIT_FAILURE);
     }
-
-    return reg;
 }
 
-// Function to release memory occupied by a quantum register
-void fscl_qubit_erase_register(quantum_register* reg) {
-    free(reg->qubits);
-}
-
-// Function to initialize a quantum circuit
-quantum_circuit fscl_qubit_create_circuit(int num_qubits) {
-    quantum_circuit circuit;
-    circuit.num_qubits = num_qubits;
-    circuit.qreg = (quantum_register*)malloc(num_qubits * sizeof(quantum_register));
-    circuit.gates = NULL;
-    circuit.num_gates = 0;
-
-    // Initialize qubits and gates as needed
-
-    return circuit;
-}
-
-// Function to release memory occupied by a quantum circuit
-void fscl_qubit_erase_circuit(quantum_circuit* circuit) {
-    for (int i = 0; i < circuit->num_qubits; ++i) {
-        fscl_qubit_erase_register(&(circuit->qreg[i]));
+// Apply Hadamard gate to the qubit
+void fscl_qbit_hadamard(cqbit *q) {
+    if (q != NULL) {
+        q->state = 1 - q->state;  // For simplicity, just toggle the state
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_hadamard.\n");
+        exit(EXIT_FAILURE);
     }
+}
 
-    for (int i = 0; i < circuit->num_gates; ++i) {
-        fscl_qubit_erase_gate(&(circuit->gates[i]));
+// Apply Pauli X gate to the qubit (bit flip)
+void fscl_qbit_pauli_x(cqbit *q) {
+    if (q != NULL) {
+        q->state = 1 - q->state;  // Bit flip
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_pauli_x.\n");
+        exit(EXIT_FAILURE);
     }
-
-    free(circuit->qreg);
-    free(circuit->gates);
 }
 
-// Function to perform a Hadamard gate on a specific qubit in the quantum register
-void fscl_qubit_apply_hadamard_gate(quantum_register* qreg, int target_fscl_qubit_index) {
-    qreg->qubits[target_fscl_qubit_index] = fscl_qubit_hadamard(qreg->qubits[target_fscl_qubit_index]);
-}
-
-// Function to perform a Pauli X gate on a specific qubit in the quantum register
-void fscl_qubit_apply_pauli_x_gate(quantum_register* qreg, int target_fscl_qubit_index) {
-    qreg->qubits[target_fscl_qubit_index] = fscl_qubit_pauli_x(qreg->qubits[target_fscl_qubit_index]);
-}
-
-// Function to perform a Pauli Y gate on a specific qubit in the quantum register
-void fscl_qubit_apply_pauli_y_gate(quantum_register* qreg, int target_fscl_qubit_index) {
-    qreg->qubits[target_fscl_qubit_index] = fscl_qubit_pauli_y(qreg->qubits[target_fscl_qubit_index]);
-}
-
-// Function to perform a Pauli Z gate on a specific qubit in the quantum register
-void fscl_qubit_apply_pauli_z_gate(quantum_register* qreg, int target_fscl_qubit_index) {
-    qreg->qubits[target_fscl_qubit_index] = fscl_qubit_pauli_z(qreg->qubits[target_fscl_qubit_index]);
-}
-
-// Example implementation for fscl_qubit_measure function
-int fscl_qubit_simulate_measure(cqubit qubit) {
-    // Simulate or perform a measurement on the qubit.
-    // For simplicity, let's assume a random outcome for demonstration purposes.
-    double probability_zero = qubit.alpha * qubit.alpha;
-    
-    // Generate a random number between 0 and 1
-    double random_number = (double)rand() / RAND_MAX;
-
-    // Compare with the probability of measuring |0⟩
-    return (random_number < probability_zero) ? 0 : 1;
-}
-
-// Function to measure a specific qubit in the quantum register and return the result
-measurement_result fscl_qubit_measure(cqubit qubit) {
-    // Call the fscl_qubit_measure function and convert the result to measurement_result
-    return fscl_qubit_simulate_measure(qubit) == 0 ? ZERO : ONE;
-}
-
-// Function to apply a quantum gate to a specific qubit in the quantum register
-void fscl_qubit_apply_gate_to_qubit(quantum_gate* gate, cqubit* qubit) {
-    if (strcmp(gate->name, "Hadamard") == 0) {
-        *qubit = fscl_qubit_hadamard(*qubit);
-    } else if (strcmp(gate->name, "PauliX") == 0) {
-        *qubit = fscl_qubit_pauli_x(*qubit);
-    } else if (strcmp(gate->name, "PauliY") == 0) {
-        *qubit = fscl_qubit_pauli_y(*qubit);
-    } else if (strcmp(gate->name, "PauliZ") == 0) {
-        *qubit = fscl_qubit_pauli_z(*qubit);
+// Apply Pauli Y gate to the qubit (bit flip and phase flip)
+void fscl_qbit_pauli_y(cqbit *q) {
+    if (q != NULL) {
+        q->state = 1 - q->state;  // Bit flip
+        // For simplicity, also introduce a phase flip (change the sign)
+        // This is an approximation as a real Pauli Y gate includes a complex phase factor
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_pauli_y.\n");
+        exit(EXIT_FAILURE);
     }
-    // Add more gate implementations as needed
+}
+
+// Apply Pauli Z gate to the qubit (phase flip)
+void fscl_qbit_pauli_z(cqbit *q) {
+    if (q != NULL) {
+        // For simplicity, introduce a phase flip (change the sign)
+        // This is an approximation as a real Pauli Z gate includes a complex phase factor
+        q->state = -q->state;
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_pauli_z.\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+// Apply Controlled NOT (CNOT) gate to two qubits
+void fscl_qbit_cnot(cqbit *control, cqbit *target) {
+    if (control != NULL && target != NULL) {
+        if (control->state == 1) {
+            // Flip the target qubit if the control qubit is in state |1⟩
+            fscl_qbit_pauli_x(target);
+        }
+        // If the control qubit is in state |0⟩, do nothing
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_cnot.\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+// Create an entangled state between two qubits
+void fscl_qbit_entangle(cqbit *qubit1, cqbit *qubit2) {
+    if (qubit1 != NULL && qubit2 != NULL) {
+        fscl_qbit_hadamard(qubit1);      // Apply Hadamard to the first qubit
+        fscl_qbit_cnot(qubit1, qubit2);  // Apply CNOT to create entanglement
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_entangle.\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+// Apply Phase gate to the qubit
+void fscl_qbit_phase(cqbit *q) {
+    if (q != NULL) {
+        // For simplicity, introduce a phase shift (change the sign)
+        // This is an approximation as a real Phase gate includes a complex phase factor
+        q->state = -q->state;
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_phase.\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+// Simulate quantum teleportation between three qubits
+void fscl_qbit_teleport(cqbit *source, cqbit *auxiliary, cqbit *target) {
+    if (source != NULL && auxiliary != NULL && target != NULL) {
+        // Step 1: Create an entangled state between the source and auxiliary qubits
+        fscl_qbit_entangle(auxiliary, source);
+
+        // Step 2: Apply Hadamard and CNOT gates to the auxiliary qubit
+        fscl_qbit_hadamard(auxiliary);
+        fscl_qbit_cnot(source, auxiliary);
+
+        // Step 3: Measure the source and auxiliary qubits
+        int measurement1 = fscl_qbit_measure(source);
+        int measurement2 = fscl_qbit_measure(auxiliary);
+
+        // Step 4: Apply corrections to the target qubit based on measurements
+        if (measurement2 == 1) {
+            fscl_qbit_pauli_x(target);  // Bit flip if auxiliary is |1⟩
+        }
+        if (measurement1 == 1) {
+            fscl_qbit_pauli_z(target);  // Phase flip if source is |1⟩
+        }
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_teleport.\n");
+        exit(EXIT_FAILURE);
+    }
+}
+
+// Swap the state of two qubits
+void fscl_qbit_swap(cqbit *qubit1, cqbit *qubit2) {
+    int temp_state = qubit1->state;
+    qubit1->state = qubit2->state;
+    qubit2->state = temp_state;
+}
+
+// Apply a controlled NOT (CNOT) gate between two control qubits and one target qubit
+void fscl_qbit_controlled_not(cqbit *control1, cqbit *control2, cqbit *target) {
+    if (control1->state == 1 && control2->state == 1) {
+        fscl_qbit_pauli_x(target);
+    }
+}
+
+// Print the state of the qubit
+void fscl_qbit_print(const cqbit *q) {
+    if (q != NULL) {
+        printf("Qubit State: |%d⟩\n", q->state);
+    } else {
+        fprintf(stderr, "Error: Null pointer in fscl_qbit_print.\n");
+        exit(EXIT_FAILURE);
+    }
 }

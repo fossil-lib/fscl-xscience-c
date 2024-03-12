@@ -8,7 +8,7 @@ if get_option('with_test').enabled()
     test_cubes = [
         'element', 'arospace', 'robotics',
         'biological',
-        'qubit', 'physics', 'dataset']
+        'qubit', 'qcircuit', 'physics', 'dataset']
 
     foreach cube : test_cubes
         test_src += ['xtest_' + cube + '.c']
