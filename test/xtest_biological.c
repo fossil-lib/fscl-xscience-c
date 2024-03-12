@@ -12,7 +12,7 @@ Description:
 */
 #include <fossil/xtest.h>   // basic test tools
 #include <fossil/xassert.h> // extra asserts
-#include <fossil/xmock.h>   // mock test tools
+#include <fossil/xmock/output.h>   // mock test tools
 
 #include <fossil/xscience/biological.h> // library under test
 
