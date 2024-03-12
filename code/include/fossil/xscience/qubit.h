@@ -31,7 +31,7 @@ typedef struct {
 cqbit fscl_qbit_create();
 void fscl_qbit_set_zero(cqbit *q);
 void fscl_qbit_set_one(cqbit *q);
-int fscl_qbit_measure(const cqbit *q);
+int fscl_qbit_measure(cqbit *q);
 void fscl_qbit_hadamard(cqbit *q);
 void fscl_qbit_pauli_x(cqbit *q);
 void fscl_qbit_pauli_y(cqbit *q);
@@ -39,7 +39,7 @@ void fscl_qbit_pauli_z(cqbit *q);
 void fscl_qbit_cnot(cqbit *control, cqbit *target);
 void fscl_qbit_entangle(cqbit *qubit1, cqbit *qubit2);
 void fscl_qbit_phase(cqbit *q);
-void fscl_qbit_teleport(const cqbit *source, cqbit *auxiliary, cqbit *target);
+void fscl_qbit_teleport(cqbit *source, cqbit *auxiliary, cqbit *target);
 
 // Utility functions
 void fscl_qbit_print(const cqbit *q);
