@@ -166,9 +166,9 @@ void fscl_qbit_swap(cqbit *qubit1, cqbit *qubit2) {
     qubit2->state = temp_state;
 }
 
-// Apply a controlled NOT (CNOT) gate between control and target qubits
-void fscl_qbit_controlled_not(cqbit *control, cqbit *target) {
-    if (control->state == 1) {
+// Apply a controlled NOT (CNOT) gate between two control qubits and one target qubit
+void fscl_qbit_controlled_not(cqbit *control1, cqbit *control2, cqbit *target) {
+    if (control1->state == 1 && control2->state == 1) {
         fscl_qbit_pauli_x(target);
     }
 }
