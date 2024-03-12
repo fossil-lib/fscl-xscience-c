@@ -29,7 +29,7 @@ typedef struct {
 // =================================================================
 
 // Function to create and initialize a decision
-cdecision fscl_decision_create(const char* name, double score);
+cdecision fscl_decision_create(char* name, double score);
 
 // Function to compare two decisions based on scores
 int fscl_decision_compare(const cdecision* decision1, const cdecision* decision2);
