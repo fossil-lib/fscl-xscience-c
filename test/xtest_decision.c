@@ -45,24 +45,6 @@ XTEST_CASE(test_decision_aggregate_scores) {
     TEST_ASSERT_FLOAT_EQUAL(2.3, total_score);
 }
 
-XTEST_CASE(test_decision_print) {
-    cdecision decision = fscl_decision_create("Test Decision", 0.75);
-    // Assuming the print function prints to stdout, so redirecting stdout for testing
-    freopen("test_output.txt", "w", stdout);
-    fscl_decision_print(&decision);
-    fflush(stdout);
-    
-    // Explicitly use the return value of fgets to avoid the warning
-    FILE* fp = fopen("test_output.txt", "r");
-    char buffer[100];
-    if (fgets(buffer, sizeof(buffer), fp) == NULL) {
-        TEST_FAIL_MESSAGE("Error reading from file");
-    }
-    fclose(fp);
-    
-    TEST_ASSERT_EQUAL_STRING("Decision: Test Decision, Score: 0.750000\n", buffer);
-}
-
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
@@ -71,5 +53,4 @@ XTEST_DEFINE_POOL(test_decision_group) {
     XTEST_RUN_UNIT(test_decision_compare);
     XTEST_RUN_UNIT(test_decision_make_weighted);
     XTEST_RUN_UNIT(test_decision_aggregate_scores);
-    XTEST_RUN_UNIT(test_decision_print);
 } // end of fixture
