@@ -3,6 +3,7 @@ m_dep = cc.find_library('m', required : false)
 
 code = files(
     'element.c', 'arospace.c', 'robotics.c',
+    'biological.c',
     'qubit.c', 'physics.c', 'dataset.c')
 
 lib = static_library('fscl-xscince-c',
