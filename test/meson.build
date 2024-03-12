@@ -5,7 +5,7 @@ if get_option('with_test').enabled()
 
     test_src = ['xunit_runner.c']
     test_cubes = [
-        'element', 'arospace', 'robotics',
+        'element', 'decision', 'arospace', 'robotics',
         'qubit', 'physics', 'dataset']
 
     foreach cube : test_cubes
