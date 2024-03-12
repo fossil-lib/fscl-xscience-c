@@ -15,7 +15,7 @@ Description:
 #include <stdlib.h>
 
 // Function to create and initialize a decision
-cdecision fscl_decision_create(const char* name, double score) {
+cdecision fscl_decision_create(char* name, double score) {
     cdecision decision;
     decision.name = name;
     decision.score = score;
