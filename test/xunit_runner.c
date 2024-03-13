@@ -22,6 +22,7 @@ XTEST_EXTERN_POOL(test_fscl_qcircuit_group);
 XTEST_EXTERN_POOL(test_fscl_qubit_group);
 XTEST_EXTERN_POOL(test_robotics_group);
 XTEST_EXTERN_POOL(test_arospace_group);
+XTEST_EXTERN_POOL(test_decision_group);
 XTEST_EXTERN_POOL(test_dataset_group);
 
 //
@@ -37,6 +38,7 @@ int main(int argc, char **argv) {
     XTEST_IMPORT_POOL(test_fscl_qubit_group);
     XTEST_IMPORT_POOL(test_robotics_group);
     XTEST_IMPORT_POOL(test_arospace_group);
+    XTEST_IMPORT_POOL(test_decision_group);
     XTEST_IMPORT_POOL(test_dataset_group);
 
     return XTEST_ERASE();

@@ -2,9 +2,11 @@ cc = meson.get_compiler('c')
 m_dep = cc.find_library('m', required : false)
 
 code = files(
-    'element.c', 'arospace.c', 'robotics.c',
-    'biological.c',
-    'qubit.c', 'qcircuit.c', 'physics.c', 'dataset.c')
+    'element.c',  'decision.c',
+    'arospace.c', 'robotics.c',
+    'biological.c',  'qubit.c',
+    'qcircuit.c', 'physics.c',
+    'dataset.c')
 
 lib = static_library('fscl-xscince-c',
     code,
