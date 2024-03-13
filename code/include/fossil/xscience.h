@@ -18,12 +18,14 @@ extern "C"
 {
 #endif
 
+#include "xscience/biological.h"
+#include "xscience/arospace.h"
+#include "xscience/decision.h"
+#include "xscience/qcircuit.h"
 #include "xscience/robotics.h"
 #include "xscience/element.h"
 #include "xscience/physics.h"
 #include "xscience/dataset.h"
-#include "xscience/arospace.h"
-#include "xscience/qcircuit.h"
 #include "xscience/qubit.h"
 
 #ifdef __cplusplus
